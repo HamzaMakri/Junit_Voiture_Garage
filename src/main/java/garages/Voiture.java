@@ -6,7 +6,7 @@ import java.util.*;
 public class Voiture {
 
 	private final String immatriculation;
-	private final List<Stationnement> myStationnements = new LinkedList<>();
+	private final LinkedList<Stationnement> myStationnements = new LinkedList<>();
 
 	public Voiture(String i) {
 		if (null == i) {
@@ -29,7 +29,7 @@ public class Voiture {
 	 */
 	public void entreAuGarage(Garage g) throws Exception {
 		// Et si la voiture est déjà dans un garage ?
-		if (myStationnements.isEmpty() || !myStationnements.get(myStationnements.size()-1).estEnCours()){ //// $$$$$$$$$^$^$^m$^m$^m$$^ù$^!
+		if (myStationnements.isEmpty() || !myStationnements.getLast().estEnCours()){
 			Stationnement s = new Stationnement(this, g);
 			myStationnements.add(s);
 		}else{
@@ -49,7 +49,7 @@ public class Voiture {
 		// Terminer ce stationnement
 
 		if (this.estDansUnGarage()){
-			myStationnements.get(myStationnements.size()-1).terminer();  //myStationnements.getLast().terminer();
+			myStationnements.getLast().terminer();  
 		}else{
 			throw new Exception("La voiture n'est pas dans un garage");
 		}
@@ -74,12 +74,11 @@ public class Voiture {
 		// DONE: Implémenter cette méthode
 		// Vrai si le dernier stationnement est en cours
 
-				// myStationnements.getLast() NE MARCHE PAS et M Jombe m'a dit de faire myStationnements.get(myStationnements.size()-1)
-                if (!myStationnements.isEmpty() && myStationnements.get(myStationnements.size()-1).estEnCours()){
-                    return true;
-                }else{
-                    return false;
-                }
+		if (!myStationnements.isEmpty() && myStationnements.getLast().estEnCours()){
+			return true;
+		}else{
+			return false;
+		}
 	}
         
         
