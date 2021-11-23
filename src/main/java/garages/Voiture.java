@@ -29,13 +29,12 @@ public class Voiture {
 	 */
 	public void entreAuGarage(Garage g) throws Exception {
 		// Et si la voiture est déjà dans un garage ?
-                if (myStationnements.isEmpty() || !myStationnements.get(myStationnements.size()-1).estEnCours()){ //// $$$$$$$$$^$^$^m$^m$^m$$^ù$^!
-                    Stationnement s = new Stationnement(this, g);
-                    myStationnements.add(s);
-                }else{
-                    throw new Exception("La voiture est déjà dans un garage");
-                }
-
+		if (myStationnements.isEmpty() || !myStationnements.get(myStationnements.size()-1).estEnCours()){ //// $$$$$$$$$^$^$^m$^m$^m$$^ù$^!
+			Stationnement s = new Stationnement(this, g);
+			myStationnements.add(s);
+		}else{
+			throw new Exception("La voiture est déjà dans un garage");
+		}
 	}
 
 	/**
@@ -49,14 +48,11 @@ public class Voiture {
 		// Trouver le dernier stationnement de la voiture
 		// Terminer ce stationnement
 
-		// myStationnements.getLast() NE MARCHE PAS et M Jombe m'a dit de faire myStationnements.get(myStationnements.size()-1)
-		if (!myStationnements.isEmpty() && myStationnements.get(myStationnements.size()-1).estEnCours()){
-			myStationnements.get(myStationnements.size()-1).terminer();
-			//myStationnements.getLast().terminer();
+		if (this.estDansUnGarage()){
+			myStationnements.get(myStationnements.size()-1).terminer();  //myStationnements.getLast().terminer();
 		}else{
 			throw new Exception("La voiture n'est pas dans un garage");
 		}
-
 	}
 
 	/**
@@ -77,6 +73,8 @@ public class Voiture {
 	public boolean estDansUnGarage() {
 		// DONE: Implémenter cette méthode
 		// Vrai si le dernier stationnement est en cours
+
+				// myStationnements.getLast() NE MARCHE PAS et M Jombe m'a dit de faire myStationnements.get(myStationnements.size()-1)
                 if (!myStationnements.isEmpty() && myStationnements.get(myStationnements.size()-1).estEnCours()){
                     return true;
                 }else{
@@ -102,8 +100,7 @@ public class Voiture {
 	public void imprimeStationnements(PrintStream out) {
 		// DONE: Implémenter cette méthode
                 
-			Map<Garage,List<Stationnement>> list = new HashMap<Garage,List<Stationnement>>();
-			list = getStationnementByGarages();
+			Map<Garage,List<Stationnement>> list = getStationnementByGarages();
 
 			for( Garage g : list.keySet() ){
 				out.println(g.toString());
